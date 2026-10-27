@@ -1,0 +1,99 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  YT Money Engine — channel settings. API keys go in .env (never here).
+# ─────────────────────────────────────────────────────────────────────────────
+
+channel:
+  name: "Your Channel Name"
+  niche: "personal finance, investing, money psychology, business and the economy"
+  # mix = the agent picks ₹/India framing or $/global framing per story
+  audience: "mix"            # india | global | mix
+  language: "en"
+  # Short description of the voice/personality, used in every script
+  persona: >
+    A sharp, warm, slightly irreverent explainer. Talks to one viewer like a smart friend.
+    Story-first, numbers-backed, zero fluff, never preachy.
+
+schedule:
+  timezone: "Asia/Kolkata"
+  # Peak Indian YouTube viewing is ~7–10 PM. Publish shortly before the peak.
+  publish_times:              # 24h, local time in `timezone`
+    mon: "18:30"
+    tue: "18:30"
+    wed: "18:30"
+    thu: "18:30"
+    fri: "18:30"
+    sat: "11:30"
+    sun: "11:30"
+  # The run uploads the video as Private + scheduled. YouTube flips it public at the slot,
+  # even if your PC is off by then. If today's slot has passed, it schedules the next one.
+  min_lead_minutes: 45        # never schedule closer than this to "now"
+  queue_ahead_days: 1         # keep videos scheduled up to 1 day ahead (a missed day never breaks the streak)
+
+content:
+  # Formats rotate so the channel never feels mass-produced. Lengths are minutes (min, max).
+  formats:
+    explainer:          {weight: 3, minutes: [8, 10], note: "How something really works (a mechanism people don't understand)"}
+    you_didnt_know:     {weight: 3, minutes: [5, 8],  note: "Surprising, little-known fact or system with real-world impact"}
+    top_list:           {weight: 2, minutes: [10, 12], note: "Top 7/10 list — e.g. money mistakes, habits, hidden fees, wealth rules"}
+    mistakes:           {weight: 3, minutes: [8, 10], note: "What people are doing wrong with money and the fix"}
+    story_case_study:   {weight: 3, minutes: [8, 12], note: "A real person/company story (rise, fall, bet, scandal) with the lesson"}
+    how_they_make_money: {weight: 2, minutes: [8, 10], note: "Business model teardown of a company people use daily"}
+    myth_busting:       {weight: 2, minutes: [5, 8],  note: "A popular money belief tested against data"}
+    money_moves:        {weight: 2, minutes: [8, 10], note: "Legit, practical ways to earn/save/grow money — no get-rich-quick claims"}
+  words_per_minute: 150
+  avoid_repeat_days: 60       # don't repeat a topic/person seen in this window
+
+research:
+  news_queries_india: ["personal finance India", "stock market India", "RBI policy", "SEBI", "mutual fund SIP", "income tax India", "Indian startup funding", "gold price India"]
+  news_queries_global: ["Warren Buffett", "Federal Reserve", "billionaire", "stock market crash", "inflation", "housing market", "AI stocks", "bankruptcy"]
+  youtube_keywords: ["personal finance", "investing explained", "money mistakes", "stock market explained", "how rich people"]
+  # Channels studied for what's working (titles/hooks/outliers). Handles with @.
+  benchmark_channels: ["@EconomicsExplained", "@HowMoneyWorks", "@GrahamStephan", "@BenFelixCSI", "@warikoo", "@LabourLawAdvisor", "@CARachanaRanade", "@FinanceWithSharan", "@ThePlainBagel", "@ColdFusion"]
+
+llm:
+  model: "claude-opus-5-5"
+  max_tokens: 32000
+  web_search_tool: "web_search_20250305"   # Anthropic server-side web search tool version
+  research_searches: 12        # max web searches while researching a topic
+  verify_searches: 8           # max web searches while fact-checking the script
+  thinking_budget: 0           # set e.g. 8000 to enable extended thinking (if your model supports it)
+
+voice:
+  provider: "elevenlabs"       # elevenlabs | kokoro (local, free fallback)
+  fallback: "none"             # none | kokoro
+  elevenlabs:
+    voice_id: "nPczCjzI2devNBz1zQrb"     # "Brian" premade. Pick any voice from your ElevenLabs Voice Library.
+    model_id: "eleven_multilingual_v2"   # most expressive long-form model
+    stability: 0.38            # lower = more emotion/variation
+    similarity_boost: 0.8
+    style: 0.32                # adds delivery/emotion; >0.5 can get theatrical
+    speed: 1.0
+    use_speaker_boost: true
+  kokoro:
+    voice: "am_michael"
+    speed: 0.92
+
+assets:
+  pexels: true                 # also search Pexels if PEXELS_API_KEY is set
+  reuse_block_days: 21         # avoid re-using the same stock clip within this many days
+
+render:
+  workers: 0                   # 0 = auto (CPU cores - 1)
+  burn_captions: true          # on-screen word-highlight captions (big retention win on mobile)
+  film_grain: true
+  crf: 19
+  preset: "veryfast"
+
+upload:
+  enabled: true
+  category_id: "27"            # 27 = Education
+  default_language: "en"
+  made_for_kids: false
+  disclose_synthetic_media: true   # REQUIRED by YouTube for realistic AI voices. Keep true.
+  upload_captions: true
+  playlist_title: "Money, Explained"
+  notify_subscribers: true
+
+notify:
+  email_to: ""                 # where the daily "uploaded ✅" mail goes (SMTP settings in .env)
+  telegram: false              # set TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID in .env to enable

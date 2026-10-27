@@ -1,0 +1,82 @@
+{
+ "title": "3 Money Facts Most People Get Completely Wrong",
+ "alt_titles": ["Buffett's $1M Bet Proved This", "Why 90% of Pros Lose (and What To Do)", "The Math That Quietly Decides Your Wealth"],
+ "thumbnail": {"lines": ["90% OF PROS", "LOSE"], "accent": 1, "accent_color": "red", "badge": "$1M BET",
+   "person_wiki": "Warren Buffett", "face_query": "shocked businessman", "bg": {"video": "stock market trading floor"},
+   "variant_b": {"lines": ["HE BET $1M", "AND WON"], "accent": 1, "accent_color": "green", "badge": "7.1% vs 2.2%"}},
+ "description_intro": "Warren Buffett bet $1 million that a simple index fund would beat hedge funds. Here are three money facts most people get wrong — about fund managers, trading and debt — and what to do instead.",
+ "tags": ["index funds", "warren buffett bet", "SPIVA", "investing for beginners", "compound interest", "credit card debt", "personal finance", "trading psychology", "money mistakes", "stock market explained"],
+ "hashtags": ["investing", "personalfinance", "money"],
+ "pinned_comment": "Which of these three surprised you most?",
+ "sources": [
+  {"title": "SPIVA U.S. Year-End 2025", "url": "https://www.spglobal.com/spdji/en/spiva/article/spiva-us-year-end-2025/"},
+  {"title": "Institutional Investor: Protégé Partners Pays Up in Buffett Bet", "url": "https://www.institutionalinvestor.com/article/2bsxg3kg83vmbpufwighs/culture/protege-partners-pays-up-in-buffett-bet"},
+  {"title": "Barber & Odean (2000), Trading Is Hazardous to Your Wealth", "url": "https://faculty.haas.berkeley.edu/odean/Papers%20current%20versions/Individual_Investor_Performance_Final.pdf"},
+  {"title": "FRED: Credit card interest rate, accounts assessed interest", "url": "https://fred.stlouisfed.org/series/TERMCBCCINTNS"},
+  {"title": "Philanthropy Roundtable: Franklin's bequest", "url": "https://www.philanthropyroundtable.org/magazine/what-miracle-of-compound-interest/"}
+ ],
+ "sections": [
+  {"title": null,
+   "sentences": [
+    "In 2007, Warren Buffett bet one million dollars that a boring index fund would beat some of Wall Street's best hedge funds.",
+    "Ten years later, it wasn't even close.",
+    "Today: three money facts most people get completely wrong, and what to do instead."],
+   "beats": [
+    {"at": 0, "type": "person", "wiki": "Warren Buffett", "caption": "Warren Buffett", "kicker": "The bet", "big": "$1,000,000", "sub": "Index fund vs. hand-picked hedge funds", "bg": {"video": "stock market trading floor"}},
+    {"at": 1, "type": "kinetic", "lines": [{"text": "Ten years later", "color": "white"}, {"text": "not even close", "color": "amber"}], "bg": {"video": "new york skyline night"}},
+    {"at": 2, "type": "list", "title": "3 money facts", "items": ["Most pros lose to the index", "Trading more earns less", "Debt compounds against you"], "bg": {"video": "city timelapse night"}}
+   ]},
+  {"title": "Most pros lose",
+   "sentences": [
+    "Every year, S&P Dow Jones Indices publishes the SPIVA scorecard.",
+    "In 2025, 79% of large-cap U.S. funds did worse than the S&P 500.",
+    "Over fifteen years, it was about 89.5%. Nearly nine in ten.",
+    "And Buffett's index fund returned about 7.1% a year, versus 2.2% for the hedge funds.",
+    "The firm on the other side of the bet, Protégé Partners, ended up paying up."],
+   "beats": [
+    {"at": 0, "type": "report", "publisher": "S&P Dow Jones Indices", "kicker": "SCORECARD", "title": "SPIVA U.S. Scorecard", "subtitle": "Year-End 2025 · active funds vs. benchmarks",
+     "rows": [["Years of scorecard history", "20+", false], ["Large-cap funds that lagged, 2025", "79%", true]],
+     "side": {"value": 79, "suffix": "%", "label": "of large-cap funds lost to the S&P 500 in 2025", "color": "red"},
+     "bg": {"video": "stock market screens"}, "source": "Source: SPIVA U.S. Year-End 2025"},
+    {"at": 2, "type": "icons", "total": 10, "highlight": 9, "big": "9 in 10", "label": "large-cap funds trailed the index over 15 years", "color_on": "red"},
+    {"at": 3, "type": "bars", "title": "Buffett's bet: annual return", "subtitle": "First 9 years, 2008–2016", "items": [["Index fund", 7.1], ["Hedge funds", 2.2]], "suffix": "%", "decimals": 1, "highlight": 0, "highlight_color": "green", "color": "purple"},
+    {"at": 4, "type": "headline", "outlet": "Institutional Investor", "headline": "Protégé Partners Pays Up in Buffett Bet", "date": "", "bg": {"video": "wall street new york"}}
+   ]},
+  {"title": "Trading more earns less",
+   "sentences": [
+    "Economists Brad Barber and Terrance Odean studied 66,465 households over six years.",
+    "The households that traded the most earned 11.4% a year. The market returned 17.9%.",
+    "Every extra trade is another spread, another fee, and another emotional decision."],
+   "beats": [
+    {"at": 0, "type": "report", "publisher": "The Journal of Finance", "kicker": "2000", "title": "Trading Is Hazardous to Your Wealth", "subtitle": "Barber & Odean · 66,465 households, 1991–1996",
+     "rows": [["Market return (per year)", "17.9%", false], ["Households that traded most", "11.4%", true]], "bg": {"video": "person checking phone"}},
+    {"at": 1, "type": "versus", "left": {"title": "The market", "value": "17.9%", "sub": "per year", "color": "green"}, "right": {"title": "Most active traders", "value": "11.4%", "sub": "per year", "color": "red"}, "winner": "left"},
+    {"at": 2, "type": "flow", "nodes": [["You", "tap buy"], ["Broker", "your app"], ["Market maker", "fills the order"]], "back_label": "SPREAD + FEES", "bg": {"video": "server room"}}
+   ]},
+  {"title": "Debt compounds too",
+   "sentences": [
+    "In August 2026, the average credit card rate on accounts paying interest was 22.36%.",
+    "At that rate, an unpaid balance roughly doubles in just over three years.",
+    "You've probably heard Albert Einstein called compound interest the eighth wonder of the world.",
+    "There's no solid evidence he ever said it. But the math is real, and it works for you or against you.",
+    "Benjamin Franklin left a thousand pounds each to Boston and Philadelphia, and by 1990 those gifts were worth nearly seven million dollars."],
+   "beats": [
+    {"at": 0, "type": "stat", "value": 22.36, "suffix": "%", "decimals": 2, "kicker": "Average card rate", "label": "on credit card accounts paying interest, August 2026", "color": "red", "bg": {"video": "credit card payment"}, "source": "Source: Federal Reserve G.19 via FRED"},
+    {"at": 1, "type": "line", "title": "$5,000 card balance, unpaid", "series": [{"label": "Balance", "color": "red", "values": [5000, 6235, 7775, 9695, 12090]}], "x_labels": ["Yr 0", "Yr 1", "Yr 2", "Yr 3", "Yr 4"], "prefix": "$", "callout": "DOUBLES IN ~3 YEARS"},
+    {"at": 2, "type": "quote", "text": "Compound interest is the eighth wonder of the world.", "author": "Albert Einstein (supposedly)", "wiki": "Albert Einstein", "stamp": "No evidence", "bg": {"video": "city night lights"}},
+    {"at": 4, "type": "timeline", "title": "Franklin's 200-year gift", "events": [["1790", "Franklin leaves £1,000 each to two cities"], ["1890", "The first 100 years end"], ["1990", "Worth nearly $7 million"]], "bg": {"photo": {"wiki": "Benjamin Franklin"}}, "tag": ["Benjamin Franklin", "1706–1790"]}
+   ]},
+  {"title": "What to do",
+   "sentences": [
+    "So, three moves: buy the index, trade less, and kill high-interest debt first.",
+    "This isn't personal financial advice, but the math is the same for everyone.",
+    "Which of these surprised you most? Tell me in the comments.",
+    "And subscribe, because tomorrow's video goes even deeper."],
+   "beats": [
+    {"at": 0, "type": "kinetic", "lines": [{"text": "Buy the index", "color": "green"}, {"text": "Trade less", "color": "amber"}, {"text": "Kill 22% debt", "color": "red"}], "bg": {"video": "sunrise clouds"}},
+    {"at": 1, "type": "footage", "caption": "Not financial advice", "bg": {"video": "sunrise clouds"}},
+    {"at": 2, "type": "kinetic", "lines": [{"text": "Which one", "color": "white"}, {"text": "surprised you?", "color": "amber"}], "bg": {"video": "people walking city"}},
+    {"at": 3, "type": "end"}
+   ]}
+ ]
+}

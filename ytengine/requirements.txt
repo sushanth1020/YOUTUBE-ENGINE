@@ -1,0 +1,15 @@
+skia-python>=87.5
+numpy>=1.26
+scipy>=1.11
+soundfile>=0.12
+Pillow>=10.0
+PyYAML>=6.0
+python-dotenv>=1.0
+requests>=2.31
+anthropic>=0.40
+google-api-python-client>=2.120
+google-auth-oauthlib>=1.2
+google-auth-httplib2>=0.2
+tzdata>=2024.1
+# Optional but recommended: cuts the real face out of photos for thumbnails (downloads a ~170 MB model once)
+rembg[cpu]>=2.0.50
