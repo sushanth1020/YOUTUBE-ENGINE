@@ -32,7 +32,9 @@ def main():
 
     if a.check:
         ok = True
-        for k in ('ANTHROPIC_API_KEY', 'ELEVENLABS_API_KEY', 'PIXABAY_API_KEY'):
+        a_or_s = config.env('ANTHROPIC_API_KEY') or config.env('CLAUDE_CODE_OAUTH_TOKEN')
+        print(f"{'OK ' if a_or_s else 'MISSING'}  ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN"); ok &= bool(a_or_s)
+        for k in ('ELEVENLABS_API_KEY', 'PIXABAY_API_KEY'):
             v = config.env(k); print(f"{'OK ' if v else 'MISSING'}  {k}"); ok &= bool(v)
         for k in ('PEXELS_API_KEY', 'SMTP_USER', 'SMTP_PASS'):
             print(f"{'OK ' if config.env(k) else 'optional'}  {k}")
@@ -50,8 +52,8 @@ def main():
         sys.exit(0 if ok else 1)
 
     from engine import pipeline
-    from engine.llm import LLM
-    res = pipeline.main(cfg, a, lambda: LLM(cfg))
+    from engine import llm as L
+    res = pipeline.main(cfg, a, lambda: L.make(cfg))
     log.info('result: %s', res)
 
 

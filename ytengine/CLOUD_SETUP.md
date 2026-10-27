@@ -38,9 +38,9 @@ Go to your repo → **Settings → Secrets and variables → Actions → New rep
 | Name | Value |
 |---|---|
 | `YT_TOKEN_JSON` | Paste from your clipboard (the whole text of `youtube_token.json`) |
-| `ANTHROPIC_API_KEY` | From console.anthropic.com |
+| `CLAUDE_CODE_OAUTH_TOKEN` **or** `ANTHROPIC_API_KEY` | **Use your Claude Pro/Max plan:** double-click `get_claude_token.bat`, log in, copy the `sk-ant-oat...` token. **Or** pay-as-you-go API: a key from console.anthropic.com. Add only one. |
 | `ELEVENLABS_API_KEY` | From elevenlabs.io → API keys |
-| `PIXABAY_API_KEY` | `58173227-844d402765d0419e0dfe40f81` |
+| `PIXABAY_API_KEY` | Your Pixabay key (pixabay.com/api/docs, shown when logged in) |
 | `PEXELS_API_KEY` | Optional, free at pexels.com/api |
 | `SMTP_USER` | Optional: your Gmail address (for the daily "✅ Scheduled" email) |
 | `SMTP_PASS` | Optional: a Gmail **App Password** (myaccount.google.com/apppasswords) |

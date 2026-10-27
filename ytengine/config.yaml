@@ -51,7 +51,10 @@ research:
   benchmark_channels: ["@EconomicsExplained", "@HowMoneyWorks", "@GrahamStephan", "@BenFelixCSI", "@warikoo", "@LabourLawAdvisor", "@CARachanaRanade", "@FinanceWithSharan", "@ThePlainBagel", "@ColdFusion"]
 
 llm:
-  model: "claude-opus-5-5"
+  # auto = use your Claude Pro/Max subscription (CLAUDE_CODE_OAUTH_TOKEN) if set, else the API key
+  provider: "auto"            # auto | api | claude_code
+  claude_code_model: "opus"   # model alias for subscription mode (opus/sonnet, whatever your plan allows)
+  model: "claude-opus-5-5"    # API mode model
   max_tokens: 32000
   web_search_tool: "web_search_20250305"   # Anthropic server-side web search tool version
   research_searches: 12        # max web searches while researching a topic

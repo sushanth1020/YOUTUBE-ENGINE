@@ -62,3 +62,51 @@ class LLM:
                                           0, max_tokens, history=messages)
             sources += s2
         raise ValueError('unreachable')
+
+
+class ClaudeCodeLLM(LLM):
+    """Uses your Claude Pro/Max SUBSCRIPTION instead of API credits, by running the official Claude Code CLI
+    in headless mode (`claude -p`). Auth: CLAUDE_CODE_OAUTH_TOKEN from `claude setup-token`.
+    Web research uses Claude Code's built-in WebSearch/WebFetch tools. Counts against your plan's usage limits."""
+
+    def __init__(self, cfg):
+        import shutil
+        self.cfg = cfg['llm']
+        self.bin = shutil.which('claude') or shutil.which('claude.cmd')
+        if not self.bin: raise RuntimeError('Claude Code CLI not found. Install: npm install -g @anthropic-ai/claude-code')
+        self.usage = {'input_tokens': 0, 'output_tokens': 0, 'web_searches': 0, 'cost_equiv_usd': 0.0}
+
+    def ask(self, system, user, searches=0, max_tokens=None, history=None):
+        import subprocess, json as _j
+        convo = ''
+        for m in history or []:
+            if isinstance(m.get('content'), str):
+                convo += f"\n\n<{m['role']}>\n{m['content']}\n</{m['role']}>"
+        prompt = (f"Earlier in this task:{convo}\n\nNow:\n{user}" if convo else user)
+        import tempfile, os
+        sp = tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False, encoding='utf-8'); sp.write(system); sp.close()
+        cmd = [self.bin, '-p', '--output-format', 'json', '--model', self.cfg.get('claude_code_model', 'opus'),
+               '--system-prompt-file', sp.name]
+        cmd += ['--allowedTools', 'WebSearch,WebFetch'] if searches else ['--disallowedTools', 'Bash,Edit,Write,Read,WebSearch,WebFetch']
+        try: r = subprocess.run(cmd, input=prompt, capture_output=True, text=True, encoding='utf-8', timeout=3600)
+        finally: os.unlink(sp.name)
+        if r.returncode != 0 and not r.stdout.strip():
+            raise RuntimeError(f'claude -p failed: {r.stderr[-1500:]}')
+        out = _j.loads(r.stdout)
+        if out.get('is_error'): raise RuntimeError(f"Claude Code error: {str(out.get('result'))[:800]}")
+        u = out.get('usage') or {}
+        self.usage['input_tokens'] += (u.get('input_tokens') or 0) + (u.get('cache_read_input_tokens') or 0)
+        self.usage['output_tokens'] += u.get('output_tokens') or 0
+        self.usage['cost_equiv_usd'] += out.get('total_cost_usd') or 0
+        text = out.get('result') or ''
+        msgs = list(history or []) + [{'role': 'user', 'content': user}, {'role': 'assistant', 'content': text}]
+        return text, [], msgs
+
+
+def make(cfg):
+    """provider: auto | api | claude_code. auto = subscription token if present, else API key."""
+    from .config import env
+    p = cfg['llm'].get('provider', 'auto')
+    if p == 'claude_code' or (p == 'auto' and env('CLAUDE_CODE_OAUTH_TOKEN')):
+        log.info('LLM: Claude Code CLI (your Claude subscription)'); return ClaudeCodeLLM(cfg)
+    log.info('LLM: Anthropic API'); return LLM(cfg)
