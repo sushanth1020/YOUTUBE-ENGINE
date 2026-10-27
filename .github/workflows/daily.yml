@@ -29,6 +29,9 @@ jobs:
   make-video:
     runs-on: ubuntu-latest
     timeout-minutes: 300
+    defaults:
+      run:
+        working-directory: ytengine   # the engine's files live in the ytengine/ folder
     steps:
       - uses: actions/checkout@v4
 
@@ -36,6 +39,7 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+          cache-dependency-path: ytengine/requirements.txt
 
       - name: Install ffmpeg
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libsndfile1
@@ -52,7 +56,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            data/cache
+            ytengine/data/cache
             ~/.u2net
           key: assets-${{ github.run_id }}
           restore-keys: assets-
@@ -94,7 +98,7 @@ jobs:
         run: |
           git config user.name "yt-engine-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f data/history.json data/channel_ids.json 2>/dev/null || true
+          for f in data/history.json data/channel_ids.json; do if [ -f "$f" ]; then git add -f "$f"; fi; done
           git commit -m "history update $(date -u +%F)" || echo "nothing to commit"
           git push || echo "push skipped"
 
@@ -104,11 +108,11 @@ jobs:
         with:
           name: video-${{ github.run_number }}
           path: |
-            runs/*/final.mp4
-            runs/*/thumbnail_*.jpg
-            runs/*/metadata.json
-            runs/*/pinned_comment.txt
-            runs/*/research_brief.json
-            runs/*/run.log
+            ytengine/runs/*/final.mp4
+            ytengine/runs/*/thumbnail_*.jpg
+            ytengine/runs/*/metadata.json
+            ytengine/runs/*/pinned_comment.txt
+            ytengine/runs/*/research_brief.json
+            ytengine/runs/*/run.log
           retention-days: 7
           if-no-files-found: ignore
