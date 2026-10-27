@@ -41,8 +41,8 @@ jobs:
           cache: pip
           cache-dependency-path: ytengine/requirements.txt
 
-      - name: Install ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libsndfile1
+      - name: Install ffmpeg + system libraries
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libsndfile1 libegl1 libgl1 libgles2 libfontconfig1   # libEGL/libGL are needed by skia-python
 
       - name: Install Python packages
         run: pip install -r requirements.txt
