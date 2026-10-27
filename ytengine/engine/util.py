@@ -59,6 +59,7 @@ def http(method, url, retries=4, backoff=3.0, ok=(200,), budget=90, **kw):
 def download(url, path, **kw):
     path = Path(path)
     if path.exists() and path.stat().st_size > 0: return path
+    path.parent.mkdir(parents=True, exist_ok=True)   # e.g. data/cache/raw on a fresh cloud run
     r = http('GET', url, stream=True, **kw)
     tmp = path.with_suffix(path.suffix + '.part')
     with open(tmp, 'wb') as f:
