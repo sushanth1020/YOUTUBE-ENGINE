@@ -53,12 +53,12 @@ research:
 llm:
   # auto = use your Claude Pro/Max subscription (CLAUDE_CODE_OAUTH_TOKEN) if set, else the API key
   provider: "auto"            # auto | api | claude_code
-  claude_code_model: "opus"   # model alias for subscription mode (opus/sonnet, whatever your plan allows)
+  claude_code_model: "sonnet" # subscription mode model. sonnet uses far less of your plan than opus
   model: "claude-opus-5-5"    # API mode model
   max_tokens: 32000
   web_search_tool: "web_search_20250305"   # Anthropic server-side web search tool version
-  research_searches: 12        # max web searches while researching a topic
-  verify_searches: 8           # max web searches while fact-checking the script
+  research_searches: 6         # max web searches while researching a topic
+  verify_searches: 4           # max web searches while fact-checking the script
   thinking_budget: 0           # set e.g. 8000 to enable extended thinking (if your model supports it)
 
 voice:
