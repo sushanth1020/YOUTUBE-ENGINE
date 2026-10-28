@@ -165,6 +165,8 @@ class Run:
     # -------------------------------------------------- orchestrate
     def execute(self, llm_factory):
         a, cfg = self.args, self.cfg
+        from . import preflight
+        preflight.run(cfg)               # bad keys stop here, before any Claude usage is spent
         yt = None
         want_upload = cfg['upload'].get('enabled', True) and not a.no_upload
         if want_upload or not a.storyboard:
