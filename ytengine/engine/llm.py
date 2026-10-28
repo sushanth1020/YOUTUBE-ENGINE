@@ -83,6 +83,7 @@ class ClaudeCodeLLM(LLM):
             if isinstance(m.get('content'), str):
                 convo += f"\n\n<{m['role']}>\n{m['content']}\n</{m['role']}>"
         prompt = (f"Earlier in this task:{convo}\n\nNow:\n{user}" if convo else user)
+        if searches: prompt += f"\n\n(Budget: use at most {int(searches)} web searches in total, then answer.)"
         import tempfile, os
         sp = tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False, encoding='utf-8'); sp.write(system); sp.close()
         cmd = [self.bin, '-p', '--output-format', 'json', '--model', self.cfg.get('claude_code_model', 'opus'),
