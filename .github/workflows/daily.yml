@@ -53,13 +53,22 @@ jobs:
         run: if [ "$HAS_SUB" = "true" ]; then npm install -g @anthropic-ai/claude-code; fi
 
       - name: Restore footage/photo cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             ytengine/data/cache
             ~/.u2net
           key: assets-${{ github.run_id }}
           restore-keys: assets-
+
+      - name: Restore unfinished run (a retry reuses the saved script and voice instead of paying for them again)
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ytengine/runs
+            !ytengine/runs/**/*.mp4
+          key: runs-${{ github.run_id }}
+          restore-keys: runs-
 
       - name: Prepare credentials
         env:
@@ -92,6 +101,28 @@ jobs:
           if [ -n "$IN_FORMAT" ]; then ARGS="$ARGS --format $IN_FORMAT"; fi
           if [ -n "$IN_MINUTES" ]; then ARGS="$ARGS --minutes $IN_MINUTES"; fi
           python run_daily.py $ARGS
+
+      - name: Save footage/photo cache (even if the run failed)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ytengine/data/cache
+            ~/.u2net
+          key: assets-${{ github.run_id }}
+
+      - name: Drop run folders older than 3 days (keeps the saved progress small)
+        if: always()
+        run: if [ -d runs ]; then find runs -mindepth 1 -maxdepth 1 -type d -mtime +3 -exec rm -rf {} +; fi
+
+      - name: Save run progress (even if the run failed)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ytengine/runs
+            !ytengine/runs/**/*.mp4
+          key: runs-${{ github.run_id }}
 
       - name: Save channel history to the repo
         if: always()
